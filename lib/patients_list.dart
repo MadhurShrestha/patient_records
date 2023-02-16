@@ -3,6 +3,10 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:patient_records/add_patient.dart';
+import 'package:patient_records/single_patient.dart';
+
+import 'edit_patient.dart';
 
 String? stringResponse;
 Map<String, dynamic>? mapResponse;
@@ -18,7 +22,7 @@ class PatientLists extends StatefulWidget {
 }
 
 class _PatientListsState extends State<PatientLists> {
-  Future apicall() async {
+  Future apicall(itemId) async {
     http.Response response;
     response = await http
         .get(Uri.parse("https://record-keeper.fly.dev/api/patients/1"));
@@ -109,24 +113,46 @@ class _PatientListsState extends State<PatientLists> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Patients'),
-      ),
+      ),      floatingActionButton: FloatingActionButton(
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => AddPatient()));
+
+      },
+      child: Icon(Icons.add),
+    ),
       body: ListView.builder(
         itemBuilder: (context, index) {
-          return Container(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                ),
-                Text(listResponse![index]['id'].toString()),
-                Text(listResponse![index]['attributes']['first_name']
-                    .toString()),
-                Text(
-                    listResponse![index]['attributes']['last_name'].toString()),
-                Text(listResponse![index]['attributes']['weight'].toString()),
-              ],
-            ),
+          return ListTile(
+            leading: Text(listResponse![index]['id'].toString()),
+            title:Text(listResponse![index]['attributes']['first_name'].toString()),
+            subtitle: Text(listResponse![index]['attributes']['last_name'].toString()),
+            trailing: Text(listResponse![index]['attributes']['weight'].toString()),
+            onTap: () {
+              // print('++++++++++++++++++++');
+              // print(listResponse![index]['id']);
+              // print(index);
+              // print('++++++++++++++++++++');
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                  EditPatient(listResponse![index]['id'].toString())));
+            }
+            ,
           );
+          // return Container(
+          //   child: Column(
+          //     children: [
+          //       Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //       ),
+          //       Text(listResponse![index]['id'].toString()),
+          //       Text(listResponse![index]['attributes']['first_name']
+          //           .toString()),
+          //       Text(
+          //           listResponse![index]['attributes']['last_name'].toString()),
+          //       Text(listResponse![index]['attributes']['weight'].toString()),
+          //     ],
+          //   ),
+          // );
         },
         itemCount: listResponse == null ? 0 : listResponse!.length,
       ),
