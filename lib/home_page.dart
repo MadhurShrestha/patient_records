@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -18,7 +17,8 @@ class _HomePageState extends State<HomePage> {
   TextEditingController weightController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController _date = TextEditingController();
-  TextEditingController transfusionRequirementController = TextEditingController();
+  TextEditingController transfusionRequirementController =
+      TextEditingController();
   TextEditingController meanHbController = TextEditingController();
   TextEditingController serumFerritinController = TextEditingController();
   final fieldText = TextEditingController();
@@ -33,7 +33,6 @@ class _HomePageState extends State<HomePage> {
     transfusionRequirementController.clear();
     meanHbController.clear();
     serumFerritinController.clear();
-
   }
 
   List<Patient> patients = List.empty(growable: true);
@@ -52,34 +51,34 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Text("Gender",
-          //  ),
-          // ListTile(
-          //
-          //   title: Text("Male"),
-          //   leading: Radio(
-          //     value: "male",
-          //     groupValue: gender,
-          //     onChanged: (value){
-          //       setState(() {
-          //         gender = value.toString();
-          //       });
-          //     },
-          //   ),
-          // ),
-          // ListTile(
-          //   title: Text("Female"),
-          //   leading: Radio(
-          //     value: "female",
-          //     groupValue: gender,
-          //     onChanged: (value){
-          //       setState(() {
-          //         gender = value.toString();
-          //       });
-          //     },
-          //   ),
-          // ),
+          children: [
+            // Text("Gender",
+            //  ),
+            // ListTile(
+            //
+            //   title: Text("Male"),
+            //   leading: Radio(
+            //     value: "male",
+            //     groupValue: gender,
+            //     onChanged: (value){
+            //       setState(() {
+            //         gender = value.toString();
+            //       });
+            //     },
+            //   ),
+            // ),
+            // ListTile(
+            //   title: Text("Female"),
+            //   leading: Radio(
+            //     value: "female",
+            //     groupValue: gender,
+            //     onChanged: (value){
+            //       setState(() {
+            //         gender = value.toString();
+            //       });
+            //     },
+            //   ),
+            // ),
 
             TextField(
               controller: firstNameController,
@@ -87,8 +86,8 @@ class _HomePageState extends State<HomePage> {
                   hintText: 'First Name',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ))),
+                    Radius.circular(10),
+                  ))),
             ),
             TextField(
               controller: lastNameController,
@@ -96,22 +95,20 @@ class _HomePageState extends State<HomePage> {
                   hintText: 'Last Name',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ))),
+                    Radius.circular(10),
+                  ))),
             ),
             TextField(
               controller: numberController,
               keyboardType: TextInputType.number,
               maxLength: 10,
-
               decoration: const InputDecoration(
                   hintText: 'Patient Number',
                   counter: SizedBox.shrink(),
-
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ))),
+                    Radius.circular(10),
+                  ))),
             ),
             TextField(
               controller: ageController,
@@ -122,45 +119,43 @@ class _HomePageState extends State<HomePage> {
                   counter: SizedBox.shrink(),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ))),
+                    Radius.circular(10),
+                  ))),
             ),
-          TextField(
-            controller: weightController,
-            keyboardType: TextInputType.number,
-            maxLength: 3,
-            decoration: const InputDecoration(
-                hintText: 'Age',
-                counter: SizedBox.shrink(),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ))),
-          ),
-          TextField(
-            controller: transfusionRequirementController,
-            keyboardType: TextInputType.number,
-            maxLength: 3,
-            decoration: const InputDecoration(
-                hintText: 'Transfusion Requirement',
-                counter: SizedBox.shrink(),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ))),
-          ),
+            TextField(
+              controller: weightController,
+              keyboardType: TextInputType.number,
+              maxLength: 3,
+              decoration: const InputDecoration(
+                  hintText: 'Age',
+                  counter: SizedBox.shrink(),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ))),
+            ),
+            TextField(
+              controller: transfusionRequirementController,
+              keyboardType: TextInputType.number,
+              maxLength: 3,
+              decoration: const InputDecoration(
+                  hintText: 'Transfusion Requirement',
+                  counter: SizedBox.shrink(),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ))),
+            ),
             TextField(
               controller: _date,
               decoration: const InputDecoration(
-                  hintText: 'Date',
-
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10)
-                      )),
+                hintText: 'Date',
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
               ),
               onTap: () async {
-                DateTime? pickeddate = await showDatePicker(context: context,
+                DateTime? pickeddate = await showDatePicker(
+                    context: context,
                     initialDate: DateTime.now(),
                     firstDate: DateTime(1900),
                     lastDate: DateTime(2500));
@@ -172,48 +167,50 @@ class _HomePageState extends State<HomePage> {
                 }
               },
             ),
-          TextField(
-            controller: meanHbController,
-            keyboardType: TextInputType.number,
-            maxLength: 3,
-            decoration: const InputDecoration(
-                hintText: 'Mean HB',
-                counter: SizedBox.shrink(),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ))),
-          ),
-          TextField(
-            controller: serumFerritinController,
-            keyboardType: TextInputType.number,
-            maxLength: 3,
-            decoration: const InputDecoration(
-                hintText: 'Serum Ferritin',
-                counter: SizedBox.shrink(),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ))),
-          ),
+            TextField(
+              controller: meanHbController,
+              keyboardType: TextInputType.number,
+              maxLength: 3,
+              decoration: const InputDecoration(
+                  hintText: 'Mean HB',
+                  counter: SizedBox.shrink(),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ))),
+            ),
+            TextField(
+              controller: serumFerritinController,
+              keyboardType: TextInputType.number,
+              maxLength: 3,
+              decoration: const InputDecoration(
+                  hintText: 'Serum Ferritin',
+                  counter: SizedBox.shrink(),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ))),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-
-
                     onPressed: () {
                       //
                       String firstName = firstNameController.text.trim();
                       String lastName = lastNameController.text.trim();
                       String age = ageController.text.trim();
                       String weight = weightController.text.trim();
-                      String transfusionRequirement = transfusionRequirementController.text.trim();
+                      String transfusionRequirement =
+                          transfusionRequirementController.text.trim();
                       String meanHb = meanHbController.text.trim();
                       String number = numberController.text.trim();
                       if (firstName.isNotEmpty && number.isNotEmpty) {
                         setState(() {
-                          patients.add(Patient(firstName: firstName,lastName: lastName, number: number));
+                          patients.add(Patient(
+                              firstName: firstName,
+                              lastName: lastName,
+                              number: number));
 
                           firstNameController.text = '';
                           lastNameController.text = '';
@@ -229,8 +226,6 @@ class _HomePageState extends State<HomePage> {
                       //
                     },
                     child: const Text('Save')),
-
-
                 ElevatedButton(
                   onPressed: clearText,
                   style: ButtonStyle(
@@ -238,18 +233,15 @@ class _HomePageState extends State<HomePage> {
                   child: const Text('Clear'),
                 ),
                 ElevatedButton(
-
                     onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  PatientLists()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => PatientLists()));
                     },
                     child: const Text('Show Patients')),
               ],
             ),
             const SizedBox(height: 10),
-             Expanded(
+            Expanded(
               child: ListView.builder(
                 itemCount: patients.length,
                 itemBuilder: (context, index) => getRow(index),
@@ -266,7 +258,7 @@ class _HomePageState extends State<HomePage> {
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor:
-          index % 2 == 0 ? Colors.deepPurpleAccent : Colors.purple,
+              index % 2 == 0 ? Colors.deepPurpleAccent : Colors.purple,
           foregroundColor: Colors.white,
           child: Text(
             patients[index].firstName[0],
@@ -290,10 +282,11 @@ class _HomePageState extends State<HomePage> {
               InkWell(
                   onTap: () {
                     //
-                    firstNameController.text = patients[index].name;
-                    lastNameController.text = patients[index].name;
+                    firstNameController.text = patients[index].firstName;
+                    lastNameController.text = patients[index].lastName;
                     ageController.text = patients[index].number;
-                    transfusionRequirementController.text = patients[index].name;
+                    transfusionRequirementController.text =
+                        patients[index].number;
                     meanHbController.text = patients[index].number;
                     serumFerritinController.text = patients[index].number;
                     numberController.text = patients[index].number;
@@ -315,12 +308,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-
       ),
-
     );
-
   }
-
 }
-

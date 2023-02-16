@@ -36,7 +36,7 @@ Widget getRow(int index) {
         index % 2 == 0 ? Colors.deepPurpleAccent : Colors.purple,
         foregroundColor: Colors.white,
         child: Text(
-          patients[index].name[0],
+          patients[index].firstName[0],
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -44,7 +44,7 @@ Widget getRow(int index) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            patients[index].name,
+            patients[index].lastName,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Text(patients[index].number),
