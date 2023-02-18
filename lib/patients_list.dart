@@ -114,10 +114,13 @@ class _PatientListsState extends State<PatientLists> {
       appBar: AppBar(
         title: Text('Patients'),
       ),      floatingActionButton: FloatingActionButton(
-      onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(
+      onPressed: () async{
+        await Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => AddPatient()));
+      setState(() {
+        apishowcall();
 
+      });
       },
       child: Icon(Icons.add),
     ),
@@ -135,24 +138,17 @@ class _PatientListsState extends State<PatientLists> {
               // print('++++++++++++++++++++');
               Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                   EditPatient(listResponse![index]['id'].toString())));
+              // setState(() {
+              //   apipostcall();
+              //   print('+++++++++');
+              //   print(apipostcall());
+              //
+              // });
+
             }
             ,
           );
-          // return Container(
-          //   child: Column(
-          //     children: [
-          //       Padding(
-          //         padding: const EdgeInsets.all(8.0),
-          //       ),
-          //       Text(listResponse![index]['id'].toString()),
-          //       Text(listResponse![index]['attributes']['first_name']
-          //           .toString()),
-          //       Text(
-          //           listResponse![index]['attributes']['last_name'].toString()),
-          //       Text(listResponse![index]['attributes']['weight'].toString()),
-          //     ],
-          //   ),
-          // );
+
         },
         itemCount: listResponse == null ? 0 : listResponse!.length,
       ),

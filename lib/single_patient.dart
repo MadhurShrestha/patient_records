@@ -1,88 +1,79 @@
-// import 'package:flutter/material.dart';
-// import 'package:patient_records/edit_patient.dart';
-// import 'package:patient_records/patients_list.dart';
-// import 'patients_list.dart';
 //
-// import 'HTTPHelper.dart';
-// // import 'edit_post.dart';
+// class EditPatient extends StatelessWidget {
+//   EditPatient(this.userId, {Key? key}) : super(key: key) {
+//     _futurePatient = HTTPHelper().getSinglePatient(userId);
+//   }
+//   String userId;
+//   late Future<Map> _futurePatient;
+//   late Map patient;
 //
-// class SinglePatient extends StatelessWidget {
-//   SinglePatient(this.itemId, {Key? key}) : super(key: key) {
-//     // _futurePost = HTTPHelper().fetchItems();
+//   void updatePatientRecords() {
+//     setState(() {
 //
+//     });
 //   }
 //
-//   TextEditingController firstNameController = TextEditingController();
-//   TextEditingController lastNameController = TextEditingController();
-//   TextEditingController numberController = TextEditingController();
-//   TextEditingController weightController = TextEditingController();
-//   TextEditingController ageController = TextEditingController();
-//   TextEditingController _date = TextEditingController();
-//   TextEditingController transfusionRequirementController =
-//   TextEditingController();
-//   TextEditingController meanHbController = TextEditingController();
-//   TextEditingController serumFerritinController = TextEditingController();
-//   final fieldText = TextEditingController();
-//
-//   void clearText() {
-//     firstNameController.clear();
-//     lastNameController.clear();
-//     numberController.clear();
-//     ageController.clear();
-//     weightController.clear();
-//     _date.clear();
-//     transfusionRequirementController.clear();
-//     meanHbController.clear();
-//     serumFerritinController.clear();
-//   }
-//
-//   String itemId;
-//   late Future<Map> _futurePost;
-//   late Map post;
 //   @override
 //   Widget build(BuildContext context) {
+//     _loadData();
+//
 //     return Scaffold(
 //       appBar: AppBar(
-//         title: Text('Patient Details'),
+//         title: Text('Details'),
 //         actions: [
-//           IconButton(onPressed: () {
-//             Navigator.of(context).push(
-//                 MaterialPageRoute(builder: (_) => EditPatient()));
-//           }, icon: Icon(Icons.edit)),
-// ],
+//           IconButton(
+//               onPressed: () {
+//                 Navigator.of(context).push(
+//                     MaterialPageRoute(builder: (_) => EditSinglePatient(patient)));
+//               },
+//               icon: Icon(Icons.edit)),
+//           IconButton(
+//               onPressed: () async {
+//                 //Delete
+//                 bool deleted = await HTTPHelper().deleteItem(userId);
+//                 print(deleted);
+//                 print(userId);
+//                 print('+++++++++');
+//                 if (deleted) {
+//                   ScaffoldMessenger.of(context)
+//                       .showSnackBar(SnackBar(content: Text('Patient deleted')));
+//                 } else {
+//                   ScaffoldMessenger.of(context).showSnackBar(
+//                       SnackBar(content: Text('Failed to delete')));
+//                 }
+//               },
+//               icon: Icon(Icons.delete)),
+//         ],
 //       ),
-//     body:         ListView.builder(itemBuilder: (context, index) {
-//       return Column(
-//         children: [
-//           Text(listResponse![index]['attributes']['first_name'].toString()),],
+//       body: FutureBuilder<Map>(
+//         future: _futurePatient,
+//         builder: (context, snapshot) {
+//           // print(snapshot.hasError);
+//           if (snapshot.hasError) {
+//             return Text('Some error  ${snapshot.error}');
+//           }
 //
-//       );
-//     },
+//           if (snapshot.hasData) {
+//             patient = snapshot.data!['data'];
+//             // print(patient);
 //
-//       //   body: FutureBuilder<Map>(
-//     //     future: _futurePost,
-//     //     builder: (context, snapshot) {
-//     //       if (snapshot.hasError) {
-//     //         return Center(child: Text('Some error occurred ${snapshot.error}'));
-//     //       }
-//     //
-//     //       if (snapshot.hasData) {
-//     //         post = snapshot.data!;
-//     //
-//     //         return Column(
-//     //           children: [
-//     //             Text(
-//     //               '${post['title']}',
-//     //               style: TextStyle(fontWeight: FontWeight.bold),
-//     //             ),
-//     //             Text('${post['body']}'),
-//     //           ],
-//     //         );
-//     //       }
-//     // //
-//     //       return Center(child: CircularProgressIndicator());
-//     //     },
-//     //   ),
-//     ));
+//             return Column(
+//
+//               children: [
+//
+//                 Text(
+//                   '${patient['id']}',
+//                   style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green, fontSize: 20),
+//                 ),
+//                 Text(
+//                   '${patient['attributes']['first_name']}',
+//                 )
+//               ],
+//             );
+//           }
+//           return Center(child: CircularProgressIndicator());
+//         },
+//       ),
+//     );
 //   }
 // }
