@@ -1,6 +1,7 @@
 //reqres sample example
 
 import 'package:flutter/material.dart';
+import 'package:patient_records/patients_list.dart';
 import 'home_page.dart';
 
 void main() {
@@ -14,7 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      color: Colors.white12,
+      home: PatientLists(),
     );
   }
 }

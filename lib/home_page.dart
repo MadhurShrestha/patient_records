@@ -229,7 +229,7 @@ class _HomePageState extends State<HomePage> {
                 ElevatedButton(
                   onPressed: clearText,
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.blue)),
+                      backgroundColor: MaterialStateProperty.all(Colors.grey)),
                   child: const Text('Clear'),
                 ),
                 ElevatedButton(

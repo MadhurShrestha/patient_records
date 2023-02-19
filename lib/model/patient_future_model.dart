@@ -14,11 +14,11 @@ class PatientRecords {
     required this.jsonapi,
   });
 
-  List<Datum> data;
+  List<UsersIdentifier> data;
   Jsonapi jsonapi;
 
   factory PatientRecords.fromJson(Map<String, dynamic> json) => PatientRecords(
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: List<UsersIdentifier>.from(json["data"].map((x) => UsersIdentifier.fromJson(x))),
     jsonapi: Jsonapi.fromJson(json["jsonapi"]),
   );
 
@@ -28,8 +28,8 @@ class PatientRecords {
   };
 }
 
-class Datum {
-  Datum({
+class UsersIdentifier {
+  UsersIdentifier({
     required this.id,
     required this.type,
     required this.attributes,
@@ -39,7 +39,7 @@ class Datum {
   String type;
   Attributes attributes;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory UsersIdentifier.fromJson(Map<String, dynamic> json) => UsersIdentifier(
     id: json["id"],
     type: json["type"],
     attributes: Attributes.fromJson(json["attributes"]),

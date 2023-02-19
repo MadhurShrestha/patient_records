@@ -31,7 +31,6 @@ class _PatientListsState extends State<PatientLists> {
       setState(() {
         // stringResponse = response.body;
         mapResponse = json.decode(response.body);
-        print(response.body);
         // listResponse  = json.decode(response.body)['data'];
       });
     }
@@ -41,12 +40,9 @@ class _PatientListsState extends State<PatientLists> {
     http.Response response;
     response =
         await http.get(Uri.parse("https://record-keeper.fly.dev/api/patients"));
-    // print(response.statusCode);
     if (response.statusCode == 200) {
       setState(() {
-        // stringResponse = response.body;
         mapResponse = json.decode(response.body);
-        print(response.body);
         listResponse = json.decode(response.body)['data'];
       });
     }
@@ -79,7 +75,6 @@ class _PatientListsState extends State<PatientLists> {
       setState(() {
         // stringResponse = response.body;
         mapResponse = json.decode(response.body);
-        print(response.body);
       });
     }
   }
@@ -93,7 +88,6 @@ class _PatientListsState extends State<PatientLists> {
       setState(() {
         // stringResponse = response.body;
         mapResponse = json.decode(response.body);
-        print(response.body);
       });
     }
   }
@@ -127,29 +121,16 @@ class _PatientListsState extends State<PatientLists> {
       body: ListView.builder(
         itemBuilder: (context, index) {
           return ListTile(
-            leading: Text(listResponse![index]['id'].toString()),
             title:Text(listResponse![index]['attributes']['first_name'].toString()),
             subtitle: Text(listResponse![index]['attributes']['last_name'].toString()),
             trailing: Text(listResponse![index]['attributes']['weight'].toString()),
             onTap: () {
-              // print('++++++++++++++++++++');
-              // print(listResponse![index]['id']);
-              // print(index);
-              // print('++++++++++++++++++++');
               Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                   EditPatient(listResponse![index]['id'].toString())));
-              // setState(() {
-              //   apipostcall();
-              //   print('+++++++++');
-              //   print(apipostcall());
-              //
-              // });
-
-            }
-            ,
+            },
           );
-
         },
+
         itemCount: listResponse == null ? 0 : listResponse!.length,
       ),
     );
