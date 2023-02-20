@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:patient_records/patients_list.dart';
-import 'home_page.dart';
 
 void main() {
   runApp( MyApp());

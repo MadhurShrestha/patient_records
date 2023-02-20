@@ -5,9 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:patient_records/patients_list.dart';
 
 import 'HTTPHelper.dart';
-import 'delete_patient.dart';
 import 'edit_single_patient.dart';
-import 'add_patient.dart';
 
 class EditPatient extends StatefulWidget {
   EditPatient(this.userId, {Key? key}) : super(key: key);
@@ -62,7 +60,7 @@ class _EditPatientState extends State<EditPatient> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Details'),
+        title: Text('Patient Record'),
         actions: [
           IconButton(
               onPressed: () async {
@@ -74,7 +72,6 @@ class _EditPatientState extends State<EditPatient> {
           IconButton(
               onPressed: () async {
                 //Delete
-
                 bool deleted = await HTTPHelper().deleteItem(widget.userId);
 
                 if (deleted) {

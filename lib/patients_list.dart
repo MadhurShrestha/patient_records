@@ -4,7 +4,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:patient_records/add_patient.dart';
-import 'package:patient_records/single_patient.dart';
+import 'package:patient_records/search_bar.dart';
 
 import 'edit_patient.dart';
 
@@ -107,17 +107,16 @@ class _PatientListsState extends State<PatientLists> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Patients'),
-      ),      floatingActionButton: FloatingActionButton(
-      onPressed: () async{
-        await Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => AddPatient()));
-      setState(() {
-        apishowcall();
-
-      });
-      },
-      child: Icon(Icons.add),
-    ),
+        automaticallyImplyLeading: false,
+        actions: [
+          // IconButton(
+          //   onPressed: () {
+          //     showSearch(context: context, delegate: SearchUser());
+          //   },
+          //   icon: Icon(Icons.search_sharp),
+          // )
+        ],
+      ),
       body: ListView.builder(
         itemBuilder: (context, index) {
           return ListTile(
@@ -132,6 +131,17 @@ class _PatientListsState extends State<PatientLists> {
         },
 
         itemCount: listResponse == null ? 0 : listResponse!.length,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async{
+          await Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => AddPatient()));
+          setState(() {
+            apishowcall();
+
+          });
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
