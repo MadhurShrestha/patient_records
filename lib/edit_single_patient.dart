@@ -197,9 +197,9 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
                       //   print(widget.patient['attributes']['first_name'] = firstNameController.text);
                         widget.patient['attributes']['first_name'] = firstNameController.text;
                         widget.patient['attributes']['last_name'] = lastNameController.text;
-                      //   widget.patient['attributes']['number'] = numberController.text;
-                      //   widget.patient['attributes']['weight'] = weightController.text;
-                      //   widget.patient['attributes']['age'] = ageController.text;
+                        // widget.patient['attributes']['number'] = numberController.text;
+                        widget.patient['attributes']['weight'] = weightController.text;
+                        widget.patient['attributes']['age'] = ageController.text;
                       //   widget.patient['attributes']['date'] = _date.text;
                       //   widget.patient['attributes']['transfusion_requirement'] = transfusionRequirementController.text;
                       //   widget.patient['attributes']['mean_hb'] = meanHbController.text;

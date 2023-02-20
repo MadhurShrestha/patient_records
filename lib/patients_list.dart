@@ -7,6 +7,7 @@ import 'package:patient_records/add_patient.dart';
 import 'package:patient_records/search_bar.dart';
 
 import 'edit_patient.dart';
+import 'model/PatientsModel.dart';
 
 String? stringResponse;
 Map<String, dynamic>? mapResponse;
@@ -22,8 +23,6 @@ class PatientLists extends StatefulWidget {
 }
 
 class _PatientListsState extends State<PatientLists> {
-
-
   Future apishowcall() async {
     http.Response response;
     response =
@@ -36,10 +35,20 @@ class _PatientListsState extends State<PatientLists> {
     }
   }
 
+  Future<PatientsModel> getPatientsModelApi() async {
+    final response = await http
+        .get(Uri.parse('https://record-keeper.fly.dev/api/patients/'));
+    var data = jsonDecode(response.body.toString());
+    if (response.statusCode == 200) {
+      return PatientsModel.fromJson(data);
+    } else {
+      return PatientsModel.fromJson(data);
+    }
+  }
 
   @override
   void initState() {
-    apishowcall();
+    getPatientsModelApi();
     super.initState();
   }
 
@@ -58,27 +67,48 @@ class _PatientListsState extends State<PatientLists> {
           // )
         ],
       ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          return ListTile(
-            title:Text(listResponse![index]['attributes']['first_name'].toString()),
-            subtitle: Text(listResponse![index]['attributes']['last_name'].toString()),
-            trailing: Text(listResponse![index]['attributes']['age'].toString()),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-                  EditPatient(listResponse![index]['id'].toString())));
-            },
-          );
-        },
-
-        itemCount: listResponse == null ? 0 : listResponse!.length,
-      ),
+      body: FutureBuilder<PatientsModel>(
+          future: getPatientsModelApi(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                  itemCount: snapshot.data!.data!.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: <Widget>[
+                        ListTile(
+                          leading: Text(snapshot.data!.data![index].id!),
+                          title: Text("${snapshot
+                              .data!.data![index].attributes!.firstName!} ${snapshot.data!.data![index].attributes!.lastName}"),
+                          subtitle: Text("${snapshot
+                              .data!.data![index].attributes!.weight.toString()} kg" ),
+                          trailing: Text("${snapshot.data!.data![index].attributes!.age.toString()} years"),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => EditPatient(
+                                    snapshot.data!.data![index].id!)));
+                          },
+                        ),
+                        const Divider(
+                          color: Colors.grey,
+                          height: 1,
+                          thickness: 1,
+                          indent: 16,
+                          endIndent: 16,
+                        ),
+                      ],
+                    );
+                  });
+            } else {
+              return Text('Loading');
+            }
+          }),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async{
-          await Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => AddPatient()));
+        onPressed: () async {
+          await Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => AddPatient()));
           setState(() {
-            apishowcall();
+            getPatientsModelApi();
           });
         },
         child: Icon(Icons.add),

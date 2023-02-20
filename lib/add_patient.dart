@@ -150,7 +150,9 @@ class _AddPatientState extends State<AddPatient> {
                     Map<String, dynamic> dataToUpdate = {
                       'patient[first_name]': firstNameController.text,
                       'patient[last_name]': lastNameController.text,
-                      'patient[age]': ageController.text
+                      'patient[age]': ageController.text,
+                      'patient[weight]': weightController.text
+
                     };
                     bool status = await HTTPHelper().addPatient(dataToUpdate);
                     if (status) {
