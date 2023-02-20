@@ -28,22 +28,14 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
   TextEditingController serumFerritinController = TextEditingController();
   final fieldText = TextEditingController();
 
-// void _updatePatient() {
-//   setState(() {
-//     print('*****');
-//     // print(patient['attributes']['first_name']);
-//     // patient['attributes']['first_name'];
-//     print('+++++++++++++++++++++++++++++++');
-//   });
-//
-// }
+
   initState() {
     super.initState();
     // _updatePatient();
     // print('kjwkejhrkwejrh');
     print(widget.patient['id']);
     firstNameController.text = widget.patient['attributes']['first_name'];
-    // lastNameController.text = widget.patient['attributes']['last_name'];
+    lastNameController.text = widget.patient['attributes']['last_name'];
     // numberController.text = widget.patient['attributes']['number'];
     // weightController.text = widget.patient['attributes']['weight'];
     // ageController.text = widget.patient['attributes']['age'];
@@ -178,13 +170,6 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
                           Radius.circular(10),
                         ))),
               ),
-              // TextFormField(
-              //   controller: _controllerTitle,
-              // ),
-              // TextFormField(
-              //   controller: _controllerBody,
-              //   maxLines: 5,
-              // ),
               ElevatedButton(
                   onPressed: () async {
 
@@ -211,7 +196,7 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
 
                       //   print(widget.patient['attributes']['first_name'] = firstNameController.text);
                         widget.patient['attributes']['first_name'] = firstNameController.text;
-                      //   widget.patient['attributes']['last_name'] = lastNameController.text;
+                        widget.patient['attributes']['last_name'] = lastNameController.text;
                       //   widget.patient['attributes']['number'] = numberController.text;
                       //   widget.patient['attributes']['weight'] = weightController.text;
                       //   widget.patient['attributes']['age'] = ageController.text;
