@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:patient_records/follow_ups.dart';
 import 'package:patient_records/patients_list.dart';
+import 'package:patient_records/show_followups.dart';
 
 import 'HTTPHelper.dart';
 import 'edit_single_patient.dart';
@@ -28,7 +30,7 @@ class _EditPatientState extends State<EditPatient> {
   Future apishowcall() async {
     http.Response response;
     response =
-        await http.get(Uri.parse("https://record-keeper.fly.dev/api/patients"));
+        await http.get(Uri.parse("https://record-keeper-migf.onrender.com/api/patients"));
     // print(response.statusCode);
     if (response.statusCode == 200) {
       setState(() {
@@ -69,6 +71,17 @@ class _EditPatientState extends State<EditPatient> {
 
               },
               icon: Icon(Icons.edit)),
+          IconButton(
+              onPressed: () async {
+                await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => ShowFollowUps(widget.userId)));
+
+              },
+              icon: Icon(Icons.book_online)),
+
+    // Navigator.pop(context);
+    // await Navigator.of(context).push(MaterialPageRoute(
+    // builder: (_) => ShowFollowUps(widget.patient['id'])));
           IconButton(
               onPressed: () async {
                 //Delete
@@ -120,8 +133,23 @@ class _EditPatientState extends State<EditPatient> {
             );
           }
           return Center(child: CircularProgressIndicator());
+
         },
+
       ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async{
+          await Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => FollowUps(patient)));
+          // setState(() {
+          //   apishowcall();
+          //
+          // });
+        },
+        child: Icon(Icons.add),
+      ),
+
     );
   }
 }

@@ -25,12 +25,16 @@ class _PatientListsState extends State<PatientLists> {
   Future apicall(itemId) async {
     http.Response response;
     response = await http
-        .get(Uri.parse("https://record-keeper.fly.dev/api/patients/1"));
+        .get(Uri.parse("https://record-keeper-migf.onrender.com/api/patients/$itemId"));
     // print(response.statusCode);
     if (response.statusCode == 200) {
       setState(() {
         // stringResponse = response.body;
         mapResponse = json.decode(response.body);
+        print('************************');
+        print(mapResponse);
+        print('************************');
+
         // listResponse  = json.decode(response.body)['data'];
       });
     }
@@ -39,11 +43,15 @@ class _PatientListsState extends State<PatientLists> {
   Future apishowcall() async {
     http.Response response;
     response =
-        await http.get(Uri.parse("https://record-keeper.fly.dev/api/patients"));
+        await http.get(Uri.parse("https://record-keeper-migf.onrender.com/api/patients"));
     if (response.statusCode == 200) {
       setState(() {
         mapResponse = json.decode(response.body);
         listResponse = json.decode(response.body)['data'];
+        print('************************');
+        print(mapResponse);
+        print('************************');
+        print(listResponse);
       });
     }
   }
@@ -51,7 +59,7 @@ class _PatientListsState extends State<PatientLists> {
   Future apipostcall() async {
     http.Response response;
     response = await http.post(
-        Uri.parse("https://record-keeper.fly.dev/api/patients"),
+        Uri.parse("https://record-keeper-migf.onrender.com/api/patients"),
         body: {"patient[first_name]": 'aajhagf'});
     if (response.statusCode == 201) {
       setState(() {
@@ -65,7 +73,7 @@ class _PatientListsState extends State<PatientLists> {
   Future apiputcall() async {
     http.Response response;
     response = await http.put(
-      Uri.parse("https://record-keeper.fly.dev/api/patients/2"),
+      Uri.parse("https://record-keeper-migf.onrender.com/api/patients/2"),
       body: {
         'patient[first_name]': 'Ali',
       },
@@ -82,7 +90,7 @@ class _PatientListsState extends State<PatientLists> {
   Future apideletecall() async {
     http.Response response;
     response = await http
-        .delete(Uri.parse("https://record-keeper.fly.dev/api/patients/4"));
+        .delete(Uri.parse("https://record-keeper-migf.onrender.com/api/patients/4"));
     // print(response.statusCode);
     if (response.statusCode == 200) {
       setState(() {
