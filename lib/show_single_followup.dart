@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:patient_records/show_followups.dart';
 
 import 'HTTPHelper.dart';
+import 'edit_single_followup.dart';
 
 
 class ShowSingleFollowups extends StatefulWidget {
@@ -25,24 +27,28 @@ class _ShowSingleFollowupsState extends State<ShowSingleFollowups> {
   late Future<Map> _futurePatient;
   late Map patient;
 
-  Future apishowcall(userId, followupId) async {
-    http.Response response;
-    response =
-    await http.get(Uri.parse("https://record-keeper-migf.onrender.com/api/patients/$userId/follow_ups/$followupId"));
-    // print(response.statusCode);
-    if (response.statusCode == 200) {
-      print('*********************');
-      print(response.statusCode);
-      print('+++++++++++++++++++++');
-
-      setState(() {
-        // stringResponse = response.body;
-        mapResponse = json.decode(response.body);
-        print(response.body);
-        listResponse = json.decode(response.body)['data'];
-      });
-    }
-  }
+  // Future apishowcall(userId, followupId) async {
+  //   http.Response response;
+  //   response =
+  //   await http.get(Uri.parse("https://record-keeper-migf.onrender.com/api/patients/$userId/follow_ups/$followupId"));
+  //   // print(response.statusCode);
+  //   if (response.statusCode == 200) {
+  //     print('*********************');
+  //     print(response.statusCode);
+  //     print('+++++++++++++++++++++');
+  //
+  //     setState(() {
+  //       // stringResponse = response.body;
+  //       mapResponse = json.decode(response.body);
+  //       // print(response.body);
+  //       listResponse = json.decode(response.body)['data'];
+  //       print('***********************');
+  //       print(listResponse);
+  //       print('+++++++++++++abc+++++++++');
+  //
+  //     });
+  //   }
+  // }
   @override
   void initState() {
     super.initState();
@@ -57,6 +63,35 @@ class _ShowSingleFollowupsState extends State<ShowSingleFollowups> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Single Followup'),
+        actions: [
+          IconButton(onPressed: () async{
+            await Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => EditSingleFollowup(patient)));
+          }, icon: const Icon(Icons.edit)),
+          IconButton(
+              onPressed: () async {
+                //Delete
+                bool deleted = await HTTPHelper().deleteSingleFollowup(widget.userId, widget.followupId);
+
+                if (deleted) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text('Followup deleted')));
+
+
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Failed to delete followup')));
+                }
+                setState(() {
+                  Navigator.pop(context);
+
+                });
+                setState(() {
+                  Navigator.pop(context);
+                });
+              },
+              icon: Icon(Icons.delete)),
+        ],
       ),
       body: FutureBuilder<Map>(
         future: _futurePatient,
@@ -68,11 +103,14 @@ class _ShowSingleFollowupsState extends State<ShowSingleFollowups> {
           }
           if (snapshot.hasData) {
             patient = snapshot.data!['data'];
-            // print(patient);
+            print('%%%%%%%%%%%%%%%%%%%%%');
+            print(patient);
+            print('***********************');
+
             return Column(
               children: [
                 Text(
-                  '${patient['attributes']['patient_id']}',
+                  '${patient['id']}',
                   style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
@@ -86,13 +124,8 @@ class _ShowSingleFollowupsState extends State<ShowSingleFollowups> {
             );
           }
           return const Center(child: CircularProgressIndicator());
-
         },
-
       ),
-
-
-
     );
   }
 }

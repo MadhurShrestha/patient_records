@@ -59,7 +59,7 @@ class _AddPatientState extends State<AddPatient> {
               keyboardType: TextInputType.number,
               maxLength: 10,
               decoration: const InputDecoration(
-                  hintText: 'Patient Number',
+                  hintText: 'Phone Number',
                   counter: SizedBox.shrink(),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -83,7 +83,7 @@ class _AddPatientState extends State<AddPatient> {
               keyboardType: TextInputType.number,
               maxLength: 3,
               decoration: const InputDecoration(
-                  hintText: 'Age',
+                  hintText: 'Weight',
                   counter: SizedBox.shrink(),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -104,6 +104,7 @@ class _AddPatientState extends State<AddPatient> {
             ),
             TextField(
               controller: _date,
+              keyboardType: TextInputType.datetime,
               decoration: const InputDecoration(
                 hintText: 'Date',
                 border: OutlineInputBorder(

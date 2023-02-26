@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:patient_records/edit_single_followup.dart';
 import 'package:patient_records/show_single_followup.dart';
 
 import 'HTTPHelper.dart';
@@ -36,13 +37,13 @@ class _ShowFollowUpsState extends State<ShowFollowUps> {
         listResponse = json.decode(response.body)['data'];
 
         Map<String, dynamic>? patient = mapResponse;
-        print('+++++++');
-        print(mapResponse);
-        print(listResponse);
-
-        print(response.statusCode);
-
-        print('&&&&&&&&&&&&');
+        // print('+++++++');
+        // print(mapResponse);
+        // print(listResponse);
+        //
+        // print(response.statusCode);
+        //
+        // print('&&&&&&&&&&&&');
         // print(patient!['weight']);
 
         // listResponse  = json.decode(response.body)['data'];
@@ -55,12 +56,14 @@ class _ShowFollowUpsState extends State<ShowFollowUps> {
   @override
   void initState() {
     apicall(widget.userId);
+    print('fizzzzzzzzzzzzzzzz');
+    print(apicall(widget.userId));
     // apishowcall();
     // apipostcall();
     // _futurePatient = HTTPHelper().getSinglePatient(widget.userId);
     // apiputcall();
     // apideletecall();
-    // super.initState();
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {
@@ -71,12 +74,13 @@ class _ShowFollowUpsState extends State<ShowFollowUps> {
       body: ListView.builder(
         itemBuilder: (context, index) {
           return ListTile(
-            title:Text(listResponse![index]['attributes']['first_name'].toString()),
-            subtitle: Text(listResponse![index]['attributes']['last_name'].toString()),
+            leading: Text(listResponse![index]['id'].toString()),
+            title:Text(listResponse![index]['attributes']['hb'].toString()),
+            subtitle: Text(listResponse![index]['attributes']['remarks'].toString()),
             trailing: Text(listResponse![index]['attributes']['weight'].toString()),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-                  ShowSingleFollowups(listResponse![index]['id'].toString(),widget.userId)));
+                  ShowSingleFollowups(listResponse![index]['id'].toString(),listResponse![index]['id'].toString())));
             },
           );
         },

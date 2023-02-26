@@ -87,26 +87,13 @@ class _PatientListsState extends State<PatientLists> {
     }
   }
 
-  Future apideletecall() async {
-    http.Response response;
-    response = await http
-        .delete(Uri.parse("https://record-keeper-migf.onrender.com/api/patients/4"));
-    // print(response.statusCode);
-    if (response.statusCode == 200) {
-      setState(() {
-        // stringResponse = response.body;
-        mapResponse = json.decode(response.body);
-      });
-    }
-  }
-
   @override
   void initState() {
     // apicall();
     apishowcall();
     // apipostcall();
     // apiputcall();
-    apideletecall();
+    // apideletecall();
     super.initState();
   }
 
