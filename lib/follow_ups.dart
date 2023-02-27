@@ -21,7 +21,7 @@ class FollowUps extends StatefulWidget {
 class _FollowUpsState extends State<FollowUps> {
   TextEditingController updatedWeightController = TextEditingController();
   TextEditingController updatedHbController = TextEditingController();
-  TextEditingController updatedBloodTransfusionController = TextEditingController();
+  TextEditingController updatedBloodtransfussionController = TextEditingController();
   TextEditingController hydroxyUreaController = TextEditingController();
   TextEditingController thalidomideController = TextEditingController();
   TextEditingController hydroxyUreaMissedController = TextEditingController();
@@ -44,6 +44,8 @@ class _FollowUpsState extends State<FollowUps> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                SizedBox(height: 5),
+
                 TextField(
                   controller: updatedWeightController,
                   keyboardType: TextInputType.number,
@@ -71,10 +73,10 @@ class _FollowUpsState extends State<FollowUps> {
                 ),
                 SizedBox(height: 5),
                 TextField(
-                  controller: updatedBloodTransfusionController,
+                  controller: updatedBloodtransfussionController,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
-                      hintText: 'Blood Transfusion',
+                      hintText: 'Blood transfussion',
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                               Radius.circular(10)
@@ -105,7 +107,8 @@ class _FollowUpsState extends State<FollowUps> {
                           )
                       )
                   ),
-                ),              SizedBox(height: 5),
+                ),
+                SizedBox(height: 5),
                 TextField(
                   controller: hydroxyUreaMissedController,
                   keyboardType: TextInputType.number,
@@ -162,16 +165,23 @@ class _FollowUpsState extends State<FollowUps> {
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                   ),
                   onTap: () async {
-                    DateTime? pickeddate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime(2500));
+                    DateTime? pickedDate = await showDatePicker(
+                        context: context, initialDate: DateTime.now(),
+                        firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                        lastDate: DateTime(2101)
+                    );
 
-                    if (pickeddate != null) {
+                    if(pickedDate != null ){
+                      print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                      print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                      //you can implement different kind of Date Format here according to your requirement
+
                       setState(() {
-                        dateController.text = DateFormat('yyyy-mm-dd').format(pickeddate);
+                        dateController.text = formattedDate; //set output date to TextField value.
                       });
+                    }else{
+                      print("Date is not selected");
                     }
                   },
                 ),
@@ -180,7 +190,7 @@ class _FollowUpsState extends State<FollowUps> {
                   Map<String, dynamic> followUpData = {
                     'follow_up[weight]' : updatedWeightController.text,
                     'follow_up[hb]' : updatedHbController.text,
-                    'follow_up[blood_transfusion]' : updatedBloodTransfusionController.text,
+                    'follow_up[blood_transfusion]' : updatedBloodtransfussionController.text,
                     'follow_up[hydroxyurea]' : hydroxyUreaController.text,
                     'follow_up[thalidomide]' : thalidomideController.text,
                     'follow_up[hydroxyurea_missed]' : hydroxyUreaMissedController.text,
