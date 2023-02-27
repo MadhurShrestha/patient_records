@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'HTTPHelper.dart';
@@ -15,8 +16,8 @@ class _AddPatientState extends State<AddPatient> {
   TextEditingController numberController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   TextEditingController ageController = TextEditingController();
-  TextEditingController _date = TextEditingController();
-  TextEditingController transfusionRequirementController =
+  TextEditingController dateController = TextEditingController();
+  TextEditingController transfussionRequirementController =
   TextEditingController();
   TextEditingController meanHbController = TextEditingController();
   TextEditingController serumFerritinController = TextEditingController();
@@ -91,11 +92,11 @@ class _AddPatientState extends State<AddPatient> {
                       ))),
             ),
             TextField(
-              controller: transfusionRequirementController,
+              controller: transfussionRequirementController,
               keyboardType: TextInputType.number,
               maxLength: 3,
               decoration: const InputDecoration(
-                  hintText: 'Transfusion Requirement',
+                  hintText: 'Transfussion Requirement',
                   counter: SizedBox.shrink(),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -103,7 +104,7 @@ class _AddPatientState extends State<AddPatient> {
                       ))),
             ),
             TextField(
-              controller: _date,
+              controller: dateController,
               keyboardType: TextInputType.datetime,
               decoration: const InputDecoration(
                 hintText: 'Date',
@@ -111,16 +112,23 @@ class _AddPatientState extends State<AddPatient> {
                     borderRadius: BorderRadius.all(Radius.circular(10))),
               ),
               onTap: () async {
-                DateTime? pickeddate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime(2500));
+                DateTime? pickedDate = await showDatePicker(
+                    context: context, initialDate: DateTime.now(),
+                    firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                    lastDate: DateTime(2101)
+                );
 
-                if (pickeddate != null) {
+                if(pickedDate != null ){
+                  print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                  String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                  print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                  //you can implement different kind of Date Format here according to your requirement
+
                   setState(() {
-                    _date.text = DateFormat('yyyy-mm-dd').format(pickeddate);
+                    dateController.text = formattedDate; //set output date to TextField value.
                   });
+                }else{
+                  print("Date is not selected");
                 }
               },
             ),
@@ -153,6 +161,15 @@ class _AddPatientState extends State<AddPatient> {
                       Map<String, dynamic> dataToUpdate = {
                         'patient[first_name]': firstNameController.text,
                         'patient[last_name]': lastNameController.text,
+                        'patient[age]': ageController.text,
+                        'patient[weight]': weightController.text,
+                        'patient[start_date]': dateController.text,
+                        // 'patient[gender]': genderController.text,
+                        'patient[contact_number]' : numberController.text,
+                        'patient[mean_hb]': meanHbController.text,
+                        'patient[transfussion_requirement]': transfussionRequirementController.text,
+                        'patient[serum_ferritin]': serumFerritinController.text,
+
                       };
                       // print(dataToUpdate);
 

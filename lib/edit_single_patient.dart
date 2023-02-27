@@ -21,8 +21,8 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
   TextEditingController numberController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   TextEditingController ageController = TextEditingController();
-  TextEditingController _date = TextEditingController();
-  TextEditingController transfusionRequirementController =
+  TextEditingController dateController = TextEditingController();
+  TextEditingController transfussionRequirementController =
   TextEditingController();
   TextEditingController meanHbController = TextEditingController();
   TextEditingController serumFerritinController = TextEditingController();
@@ -34,14 +34,16 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
     // print('kjwkejhrkwejrh');
     print(widget.patient['id']);
     firstNameController.text = widget.patient['attributes']['first_name'];
+    lastNameController.text = widget.patient['attributes']['last_name'];
+
     // lastNameController.text = widget.patient['attributes']['last_name'];
-    // numberController.text = widget.patient['attributes']['number'];
-    // weightController.text = widget.patient['attributes']['weight'];
-    // ageController.text = widget.patient['attributes']['age'];
-    // _date.text = widget.patient['attributes']['date'];
-    // transfusionRequirementController.text = widget.patient['attributes']['transfusion_requirement'];
-    // meanHbController.text = widget.patient['attributes']['mean_hb'];
-    // serumFerritinController.text = widget.patient['attributes']['serrumferritin'];
+    numberController.text = widget.patient['attributes']['contact_number'].toString();
+    weightController.text = widget.patient['attributes']['weight'].toString();
+    ageController.text = widget.patient['attributes']['age'].toString();
+    dateController.text = widget.patient['attributes']['start_date'].toString();
+    transfussionRequirementController.text = widget.patient['attributes']['transfussion_requirement'].toString();
+    meanHbController.text = widget.patient['attributes']['mean_hb'].toString();
+    serumFerritinController.text = widget.patient['attributes']['serum_ferritin'].toString();
 
   }
 
@@ -112,11 +114,11 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
                           ))),
                 ),
                 TextField(
-                  controller: transfusionRequirementController,
+                  controller: transfussionRequirementController,
                   keyboardType: TextInputType.number,
                   maxLength: 3,
                   decoration: const InputDecoration(
-                      hintText: 'Transfusion Requirement',
+                      hintText: 'transfussion Requirement',
                       counter: SizedBox.shrink(),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
@@ -124,7 +126,7 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
                           ))),
                 ),
                 TextField(
-                  controller: _date,
+                  controller: dateController,
                   decoration: const InputDecoration(
                     hintText: 'Date',
                     border: OutlineInputBorder(
@@ -139,7 +141,7 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
 
                     if (pickeddate != null) {
                       setState(() {
-                        _date.text = DateFormat('yyyy-mm-dd').format(pickeddate);
+                        dateController.text = DateFormat('yyyy-mm-dd').format(pickeddate);
                       });
                     }
                   },
@@ -181,13 +183,13 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
                       Map<String, String> dataToUpdate = {
                         'first_name': firstNameController.text,
                         'last_name': lastNameController.text,
-                        'number': numberController.text,
+                        'contact_number': numberController.text,
                         'age': ageController.text,
                         'weight': weightController.text,
-                        'transfusion_requirement': transfusionRequirementController.text,
-                        'date': _date.text,
+                        'transfussion_requirement': transfussionRequirementController.text,
+                        'start_date': dateController.text,
                         'mean_hb': meanHbController.text,
-                        'serrum_ferritin': serumFerritinController.text,
+                        'serum_ferritin': serumFerritinController.text,
 
                       };
 
@@ -201,14 +203,16 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
 
                         //   print(widget.patient['attributes']['first_name'] = firstNameController.text);
                           widget.patient['attributes']['first_name'] = firstNameController.text;
-                        //   widget.patient['attributes']['last_name'] = lastNameController.text;
-                        //   widget.patient['attributes']['number'] = numberController.text;
-                        //   widget.patient['attributes']['weight'] = weightController.text;
-                        //   widget.patient['attributes']['age'] = ageController.text;
-                        //   widget.patient['attributes']['date'] = _date.text;
-                        //   widget.patient['attributes']['transfusion_requirement'] = transfusionRequirementController.text;
-                        //   widget.patient['attributes']['mean_hb'] = meanHbController.text;
-                        //   widget.patient['attributes']['serrum_ferritin'] = serumFerritinController.text;
+                          widget.patient['attributes']['last_name'] = lastNameController.text;
+
+                          //   widget.patient['attributes']['last_name'] = lastNameController.text;
+                          widget.patient['attributes']['contact_number'] = numberController.text;
+                          widget.patient['attributes']['weight'] = weightController.text;
+                          widget.patient['attributes']['age'] = ageController.text;
+                          widget.patient['attributes']['start_date'] = dateController.text;
+                          widget.patient['attributes']['transfussion_requirement'] = transfussionRequirementController.text;
+                          widget.patient['attributes']['mean_hb'] = meanHbController.text;
+                          widget.patient['attributes']['serum_ferritin'] = serumFerritinController.text;
                         //
                         //
                         //
