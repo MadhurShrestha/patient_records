@@ -17,6 +17,7 @@ class _AddPatientState extends State<AddPatient> {
   TextEditingController weightController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
   TextEditingController transfussionRequirementController =
   TextEditingController();
   TextEditingController meanHbController = TextEditingController();
@@ -55,6 +56,15 @@ class _AddPatientState extends State<AddPatient> {
                         Radius.circular(10),
                       ))),
             ),
+                // TextField(
+                //   controller: genderController,
+                //   decoration: const InputDecoration(
+                //       hintText: 'Gender',
+                //       border: OutlineInputBorder(
+                //           borderRadius: BorderRadius.all(
+                //             Radius.circular(10),
+                //           ))),
+                // ),
             TextField(
               controller: numberController,
               keyboardType: TextInputType.number,
@@ -164,6 +174,7 @@ class _AddPatientState extends State<AddPatient> {
                         'patient[age]': ageController.text,
                         'patient[weight]': weightController.text,
                         'patient[start_date]': dateController.text,
+                        // 'patient[gender]': genderController.text,
                         // 'patient[gender]': genderController.text,
                         'patient[contact_number]' : numberController.text,
                         'patient[mean_hb]': meanHbController.text,

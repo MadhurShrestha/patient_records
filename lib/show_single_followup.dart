@@ -103,25 +103,154 @@ class _ShowSingleFollowupsState extends State<ShowSingleFollowups> {
           }
           if (snapshot.hasData) {
             patient = snapshot.data!['data'];
-            print('%%%%%%%%%%%%%%%%%%%%%');
-            print(patient);
-            print('***********************');
+            return Container(
+              padding: EdgeInsets.fromLTRB(10,10,10,0),
+              width: double.maxFinite,
+              height: double.maxFinite,
+              child: Card(
+                elevation: 15,
+                child: Center(
+                  child: Column(
+                    children: [
+                      Divider(),
 
-            return Column(
-              children: [
-                Text(
-                  '${patient['id']}',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                      fontSize: 20),
+
+                      Text(
+                        'Followup Date: ${patient['attributes']['date']}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          height: 1,
+                          color: Colors.greenAccent,
+                        ),
+                      ),
+
+                      Divider(
+                        thickness: 3,
+                        color: Colors.black12,
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'Weight: ${patient['attributes']['weight']} ',  style: const TextStyle(
+                        fontSize: 20,
+                        height: 1.5,
+                        color: Colors.grey,
+                      ),
+
+                      ),
+                      Divider(
+                        thickness: 2,
+                        color: Colors.black12,
+                      ),
+                      SizedBox(height: 10),  Text(
+                        'Hb: ${patient['attributes']['hb']} ',  style: const TextStyle(
+                        fontSize: 20,
+                        height: 1.5,
+                        color: Colors.grey,
+                      ),
+                      ),
+                      Divider(
+                        thickness: 3,
+                        color: Colors.black12,
+                      ),
+                      SizedBox(height: 10),Text(
+                        'Blood Transfusion: ${patient['attributes']['blood_transfusion']}',  style: const TextStyle(
+                        fontSize: 20,
+                        height: 1.5,
+                        color: Colors.grey,
+                      ),
+                      ),
+                      Divider(
+                        thickness: 3,
+                        color: Colors.black12,
+                      ),
+                      SizedBox(height: 10),Text(
+                        'Hydroxyurea: ${patient['attributes']['hydroxyurea']} ',  style: const TextStyle(
+                        fontSize: 20,
+                        height: 01.5,
+                        color: Colors.grey,
+                      ),
+                      ),
+                      Divider(
+                        thickness: 3,
+                        color: Colors.black12,
+                      ),
+                      SizedBox(height: 10),Text(
+                        'Thalidomide: ${patient['attributes']['thalidomide']} ',  style: const TextStyle(
+                        fontSize: 20,
+                        height: 1.5,
+                        color: Colors.grey,
+                      ),
+                      ),
+                      Divider(
+                        thickness: 3,
+                        color: Colors.black12,
+                      ),
+                      SizedBox(height: 10),Text(
+                        'Hydroxyurea Missed: ${patient['attributes']['hydroxyurea_missed']}',  style: const TextStyle(
+                        fontSize: 20,
+                        height: 1.5,
+                        color: Colors.grey,
+                      ),
+                      ),
+                      Divider(
+                        thickness: 3,
+                        color: Colors.black12,
+                      ),
+                      SizedBox(height: 10),Text(
+                        'Thalidomide Missed: ${patient['attributes']['thalidomide_missed']} ',  style: const TextStyle(
+                        fontSize: 20,
+                        height:1.5,
+                        color: Colors.grey,
+                      ),
+                      ),
+                      Divider(
+                        thickness: 3,
+                        color: Colors.black12,
+                      ),
+                      SizedBox(height: 10),Text(
+                        'Side Effects: ${patient['attributes']['side_effects']} ',  style: const TextStyle(
+                        fontSize: 20,
+                        height: 1.5,
+                        color: Colors.grey,
+                      ),
+                      ),
+                      Divider(
+                        thickness: 3,
+                        color: Colors.black12,
+                      ),
+                      SizedBox(height: 10),Text(
+                        'Patient ID: ${patient['attributes']['patient_id']} ',  style: const TextStyle(
+                        fontSize: 20,
+                        height: 1.5,
+                        color: Colors.grey,
+                      ),
+                      ),Divider(
+                        thickness: 3,
+                        color: Colors.black12,
+                      ),
+                      SizedBox(height: 10),Text(
+                        'Remarks: ${patient['attributes']['remarks']} ',  style: const TextStyle(
+                        fontSize: 20,
+                        height: 1.5,
+                        color: Colors.grey,
+                      ),
+                      ),
+
+                    ],
+                  ),
                 ),
-                Text('${patient}'),
-                Text(
-                  '${patient['attributes']['weight']}',
-                )
-              ],
+              ),
             );
+
+            // return Column(
+            //   children: [
+            //
+            //     Text('${patient}'),
+            //     Text(
+            //       '${patient['attributes']['weight']}',
+            //     )
+            //   ],
+            // );
           }
           return const Center(child: CircularProgressIndicator());
         },

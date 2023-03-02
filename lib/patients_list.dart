@@ -22,23 +22,7 @@ class PatientLists extends StatefulWidget {
 }
 
 class _PatientListsState extends State<PatientLists> {
-  Future apicall(itemId) async {
-    http.Response response;
-    response = await http
-        .get(Uri.parse("https://record-keeper-migf.onrender.com/api/patients/$itemId"));
-    // print(response.statusCode);
-    if (response.statusCode == 200) {
-      setState(() {
-        // stringResponse = response.body;
-        mapResponse = json.decode(response.body);
-        print('************************');
-        print(mapResponse);
-        print('************************');
 
-        // listResponse  = json.decode(response.body)['data'];
-      });
-    }
-  }
 
   Future apishowcall() async {
     http.Response response;
@@ -56,36 +40,8 @@ class _PatientListsState extends State<PatientLists> {
     }
   }
 
-  Future apipostcall() async {
-    http.Response response;
-    response = await http.post(
-        Uri.parse("https://record-keeper-migf.onrender.com/api/patients"),
-        body: {"patient[first_name]": 'aajhagf'});
-    if (response.statusCode == 201) {
-      setState(() {
-        // stringResponse = response.body;
-        mapResponse = json.decode(response.body);
-        print(response.body);
-      });
-    }
-  }
 
-  Future apiputcall() async {
-    http.Response response;
-    response = await http.put(
-      Uri.parse("https://record-keeper-migf.onrender.com/api/patients/2"),
-      body: {
-        'patient[first_name]': 'Ali',
-      },
-    );
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      setState(() {
-        // stringResponse = response.body;
-        mapResponse = json.decode(response.body);
-      });
-    }
-  }
+
 
   @override
   void initState() {
@@ -115,8 +71,7 @@ class _PatientListsState extends State<PatientLists> {
       body: ListView.builder(
         itemBuilder: (context, index) {
           return ListTile(
-            title:Text(listResponse![index]['attributes']['first_name'].toString()),
-            subtitle: Text(listResponse![index]['attributes']['last_name'].toString()),
+            title:Text('${listResponse![index]['attributes']['first_name']} ${listResponse![index]['attributes']['last_name']}'.toString()),
             trailing: Text(listResponse![index]['attributes']['weight'].toString()),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) =>

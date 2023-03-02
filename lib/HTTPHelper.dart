@@ -3,6 +3,7 @@ import "dart:convert";
 import "package:http/http.dart" as http;
 
 class HTTPHelper {
+  String rootUrl = 'https://record-keeper-migf.onrender.com/api/patients';
 
   Future<Map> showPatients() async {
     Map patients = {};
@@ -12,7 +13,7 @@ class HTTPHelper {
     //Add the item to the database, call the API
     http.Response response = await http
         .get(
-        Uri.parse('https://record-keeper-migf.onrender.com/api/patients'),);
+        Uri.parse('${rootUrl}api/patients'),);
     if(response.statusCode==200)
     {
       String jsonString = response.body;
@@ -34,7 +35,7 @@ class HTTPHelper {
     //Add the item to the database, call the API
     http.Response response = await http
         .post(
-        Uri.parse('https://record-keeper-migf.onrender.com/api/patients'),
+        Uri.parse(rootUrl),
         body: data);
     if(response.statusCode==201)
     {
@@ -49,7 +50,7 @@ class HTTPHelper {
   Future<bool> addFollowup(Map data, String userId) async{
     bool status = false;
     //Add  the item to the database and call the API
-    http.Response response = await http.post(Uri.parse('https://record-keeper-migf.onrender.com/api/patients/$userId/follow_ups/'),
+    http.Response response = await http.post(Uri.parse('$rootUrl/$userId/follow_ups/'),
         body: data,
     );
     if(response.statusCode == 201) {
@@ -63,7 +64,7 @@ class HTTPHelper {
   Future<bool> updateItem(Map data, String userId) async{
       bool status = false;
       //Add  the item to the database and call the API
-      http.Response response = await http.put(Uri.parse('https://record-keeper-migf.onrender.com/api/patients/$userId'),
+      http.Response response = await http.put(Uri.parse('$rootUrl/$userId'),
           body: jsonEncode(data),
           headers: {
             'Content-type': 'application/json'
@@ -78,7 +79,7 @@ class HTTPHelper {
   Future<bool> updateSingleFollowup(Map data, String userId, followupId) async{
     bool status = false;
     //Add  the item to the database and call the API
-    http.Response response = await http.put(Uri.parse('https://record-keeper-migf.onrender.com/api/patients/$userId/follow_ups/$followupId'),
+    http.Response response = await http.put(Uri.parse('$rootUrl/$userId/follow_ups/$followupId'),
         body: jsonEncode(data),
         headers: {
           'Content-type': 'application/json'
@@ -98,7 +99,7 @@ class HTTPHelper {
   Future<Map> getSinglePatient(userId) async{
   Map patient={};
   //get the item from the api
-  http.Response response = await http.get(Uri.parse('https://record-keeper-migf.onrender.com/api/patients/$userId'));
+  http.Response response = await http.get(Uri.parse('$rootUrl/$userId'));
 
   if(response.statusCode == 200);
   {
@@ -112,7 +113,7 @@ class HTTPHelper {
   Future<Map> getSingleFollowup(userId, followupId) async{
     Map patient={};
     //get the item from the api
-    http.Response response = await http.get(Uri.parse('https://record-keeper-migf.onrender.com/api/patients/$userId/follow_ups/$followupId'));
+    http.Response response = await http.get(Uri.parse('$rootUrl/$userId/follow_ups/$followupId'));
 
     if(response.statusCode == 200);
     {
@@ -130,7 +131,7 @@ class HTTPHelper {
 
   Future<bool> deleteItem(String userId) async {
     bool status = false;
-    http.Response response=await http.delete(Uri.parse('https://record-keeper-migf.onrender.com/api/patients/$userId'),);
+    http.Response response=await http.delete(Uri.parse('$rootUrl/$userId'),);
     print(response.statusCode);
     if(response.statusCode==204)
     {
@@ -143,7 +144,7 @@ class HTTPHelper {
     bool status = false;
 
     //Delete the item from the Database
-    http.Response response=await http.delete(Uri.parse('https://record-keeper-migf.onrender.com/api/patients/$userId/follow_ups/$followupId'),);
+    http.Response response=await http.delete(Uri.parse('$rootUrl/$userId/follow_ups/$followupId'),);
     print(response.statusCode);
 
     if(response.statusCode==204)
@@ -158,7 +159,7 @@ class HTTPHelper {
   Future<Map> getFollowups(userId) async{
     Map patient={};
     //get the item from the api
-    http.Response response = await http.get(Uri.parse('https://record-keeper-migf.onrender.com/api/patients/$userId/follow_ups'));
+    http.Response response = await http.get(Uri.parse('$rootUrl/$userId/follow_ups'));
 
     if(response.statusCode == 200);
     {

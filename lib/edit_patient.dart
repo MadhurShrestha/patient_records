@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:patient_records/follow_ups.dart';
 import 'package:patient_records/patients_list.dart';
 import 'package:patient_records/show_followups.dart';
@@ -21,7 +22,6 @@ class EditPatient extends StatefulWidget {
 class _EditPatientState extends State<EditPatient> {
   String? stringResponse;
   Map<String, dynamic>? mapResponse;
-
   Map? dataResponse;
   List? listResponse;
   late Future<Map> _futurePatient;
@@ -58,11 +58,36 @@ class _EditPatientState extends State<EditPatient> {
     });
   }
 
+  Widget _buildCard(BuildContext context,String stat, Color color) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(10,10,10,0),
+      height: 80,
+      width: double.maxFinite,
+      child: Card(
+        elevation: 5,
+        child: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(stat, style: TextStyle(
+                      fontSize: 25,
+                      height: 0.80,
+                    color: color
+                    ),
+                  ),
+                ]
+            )
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Patient Record'),
+        title: Text('Patient Record' ),
         actions: [
           IconButton(
               onPressed: () async {
@@ -106,6 +131,7 @@ class _EditPatientState extends State<EditPatient> {
       icon: Icon(Icons.delete)),
         ],
       ),
+
       body: FutureBuilder<Map>(
         future: _futurePatient,
         builder: (context, snapshot) {
@@ -114,22 +140,154 @@ class _EditPatientState extends State<EditPatient> {
             print('All is well');
             return Text('Some error  ${snapshot.error}');
           }
+          // final lastFollowUpDate = patient['attributes']['last_follow_up_date'];
+          // final formattedDate = DateFormat('yyyy-MM-dd').format(lastFollowUpDate);
           if (snapshot.hasData) {
             patient = snapshot.data!['data'];
             // print(patient);
-            return Column(
-              children: [
-                Text(
-                  '${patient['id']}',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                      fontSize: 20),
+            return Container(
+              padding: EdgeInsets.fromLTRB(10,10,10,0),
+              width: double.maxFinite,
+              height: double.maxFinite,
+              child: Card(
+                elevation: 15,
+                child: Center(
+                  child: Column(
+                    children: [
+
+                      Divider(),
+
+
+                      Text(
+                        'Patient ID: ${patient['id']}',
+                        style: const TextStyle(
+                          fontSize: 25,
+                          height: 1,
+                          color: Colors.greenAccent,
+                        ),
+                      ),
+
+                      Divider(
+                        thickness: 3,
+                        color: Colors.black12,
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'Name: ${patient['attributes']['first_name']} ${patient['attributes']['last_name']}',  style: const TextStyle(
+                        fontSize: 25,
+                        height: 1.5,
+                        color: Colors.grey,
+                      ),
+
+                      ),
+                //   Divider(
+                //   thickness: 2,
+                //   color: Colors.black12,
+                // ),SizedBox(height: 10),
+                //       Text(
+                //         'Gender: ${patient['attributes']['gender']}',  style: const TextStyle(
+                //         fontSize: 25,
+                //         height: 1.5,
+                //         color: Colors.grey,
+                //       ),
+                //
+                //       ),
+                      Divider(
+                        thickness: 2,
+                        color: Colors.black12,
+                      ),
+                SizedBox(height: 10),  Text(
+                        'Age: ${patient['attributes']['age']} ',  style: const TextStyle(
+                        fontSize: 25,
+                        height: 1.5,
+                        color: Colors.grey,
+                      ),
+                      ),
+              Divider(
+                thickness: 3,
+                color: Colors.black12,
+              ),
+              SizedBox(height: 10),Text(
+                        'Weight: ${patient['attributes']['weight']}',  style: const TextStyle(
+                        fontSize: 25,
+                        height: 1.5,
+                        color: Colors.grey,
+                      ),
+                      ),
+              Divider(
+                thickness: 3,
+                color: Colors.black12,
+              ),
+              SizedBox(height: 10),Text(
+                        'Contact Number: ${patient['attributes']['contact_number']} ',  style: const TextStyle(
+                        fontSize: 25,
+                        height: 01.5,
+                        color: Colors.grey,
+                      ),
+                      ),
+              Divider(
+                thickness: 3,
+                color: Colors.black12,
+              ),
+              SizedBox(height: 10),Text(
+                        'Mean Hb: ${patient['attributes']['mean_hb']} ',  style: const TextStyle(
+                        fontSize: 25,
+                        height: 1.5,
+                        color: Colors.grey,
+                      ),
+                      ),
+              Divider(
+                thickness: 3,
+                color: Colors.black12,
+              ),
+              SizedBox(height: 10),Text(
+                        'Transfusion Requirement: ${patient['attributes']['transfussion_requirement']}',  style: const TextStyle(
+                        fontSize: 25,
+                        height: 1.5,
+                        color: Colors.grey,
+                      ),
+                      ),
+              Divider(
+                thickness: 3,
+                color: Colors.black12,
+              ),
+              SizedBox(height: 10),Text(
+                'Serum Ferritin: ${patient['attributes']['serum_ferritin']} ',  style: const TextStyle(
+                fontSize: 25,
+                height:1.5,
+                color: Colors.grey,
                 ),
+              ),
+                      Divider(
+                        thickness: 3,
+                        color: Colors.black12,
+                      ),
+                      SizedBox(height: 10),Text(
+                        'Date: ${patient['attributes']['start_date']} ',  style: const TextStyle(
+                        fontSize: 25,
+                        height: 1.5,
+                        color: Colors.grey,
+                      ),
+                      ),
+                      Divider(
+                        thickness: 3,
+                        color: Colors.black12,
+                      ),
+                      SizedBox(height: 10),
+
+
                 Text(
-                  '${patient['attributes']['first_name']}',
-                )
-              ],
+                        'Last Followup Date: ${(patient['attributes']['last_follow_up_date'])} ',  style: const TextStyle(
+                        fontSize: 25,
+                        height: 1.5,
+                        color: Colors.grey,
+                      ),
+
+                ),
+                    ],
+                  ),
+                ),
+              ),
             );
           }
           return Center(child: CircularProgressIndicator());

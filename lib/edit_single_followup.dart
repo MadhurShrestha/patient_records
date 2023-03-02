@@ -164,6 +164,17 @@ class _EditSingleFollowupState extends State<EditSingleFollowup> {
                       )
                   ),
                 ),
+                TextField(
+                  controller: remarksController,
+                  decoration: const InputDecoration(
+                      hintText: 'Remarks',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(10)
+                          )
+                      )
+                  ),
+                ),
                 SizedBox(height: 5),
                 TextField(
                   controller: dateController,

@@ -21,6 +21,7 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
   TextEditingController numberController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   TextEditingController ageController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController transfussionRequirementController =
   TextEditingController();
@@ -35,6 +36,7 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
     print(widget.patient['id']);
     firstNameController.text = widget.patient['attributes']['first_name'];
     lastNameController.text = widget.patient['attributes']['last_name'];
+    // genderController.text = widget.patient['attributes']['gender'].toString();
 
     // lastNameController.text = widget.patient['attributes']['last_name'];
     numberController.text = widget.patient['attributes']['contact_number'].toString();
@@ -77,6 +79,15 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
                             Radius.circular(10),
                           ))),
                 ),
+                // TextField(
+                //   controller: genderController,
+                //   decoration: const InputDecoration(
+                //       hintText: 'Last Name',
+                //       border: OutlineInputBorder(
+                //           borderRadius: BorderRadius.all(
+                //             Radius.circular(10),
+                //           ))),
+                // ),
                 TextField(
                   controller: numberController,
                   keyboardType: TextInputType.number,
@@ -133,16 +144,23 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                   ),
                   onTap: () async {
-                    DateTime? pickeddate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime(2500));
+                    DateTime? pickedDate = await showDatePicker(
+                        context: context, initialDate: DateTime.now(),
+                        firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                        lastDate: DateTime(2101)
+                    );
 
-                    if (pickeddate != null) {
+                    if(pickedDate != null ){
+                      print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                      print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                      //you can implement different kind of Date Format here according to your requirement
+
                       setState(() {
-                        dateController.text = DateFormat('yyyy-mm-dd').format(pickeddate);
+                        dateController.text = formattedDate; //set output date to TextField value.
                       });
+                    }else{
+                      print("Date is not selected");
                     }
                   },
                 ),
@@ -183,6 +201,7 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
                       Map<String, String> dataToUpdate = {
                         'first_name': firstNameController.text,
                         'last_name': lastNameController.text,
+                        // 'gender': genderController.text,
                         'contact_number': numberController.text,
                         'age': ageController.text,
                         'weight': weightController.text,
@@ -204,6 +223,8 @@ class _EditSinglePatientState extends State<EditSinglePatient> {
                         //   print(widget.patient['attributes']['first_name'] = firstNameController.text);
                           widget.patient['attributes']['first_name'] = firstNameController.text;
                           widget.patient['attributes']['last_name'] = lastNameController.text;
+                          widget.patient['attributes']['gender'] = genderController.text;
+
 
                           //   widget.patient['attributes']['last_name'] = lastNameController.text;
                           widget.patient['attributes']['contact_number'] = numberController.text;
